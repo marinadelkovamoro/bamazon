@@ -23,7 +23,7 @@ connection.connect(err => {
 });
 
 function afterConnection() {
-  connection.query("SELECT item_id, product_name, price FROM products", (err, data) => {
+  connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", (err, data) => {
     if (err) throw err;
     // prints the results in an array
     console.table(data);
@@ -45,13 +45,11 @@ function askQuestions(inventory) {
     var product = checkforId(id, inventory);
     if (product) {
       askForQuantity(product);
-
     }
     else {
-      console.log("Please select the right ID");
+      console.log("Please select a correct product ID from the table.");
       afterConnection();
     }
-
   });
 }
 
@@ -67,7 +65,7 @@ function askForQuantity(product) {
   inquirer.prompt([
     {
       type: "input",
-      message: "What quantity would you like to buy?",
+      message: "How many " + product.product_name + "(s) would you like to purchase?",
       name: "quantity"
     }
   ]).then(function (answer) {
@@ -87,7 +85,8 @@ function makePurchase(product, quantityEntered) {
     quantityEntered, product.item_id
   ], function (err, response) {
     if (err) throw err
-    console.log("You have successfully purchased " + quantityEntered + " " + product.product_name);
+    console.log("You have successfully purchased " + quantityEntered + " " + product.product_name + "(s)");
+    console.log("You can now place another order. Select a product you would like to procure from the table below:")
     afterConnection();
   });
 }
