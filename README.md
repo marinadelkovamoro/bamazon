@@ -13,10 +13,7 @@ This is an Amazon-like storefront app created using MySQL. The app takes in orde
 Demo Run
 ------------ 
 
-
-
-Inventory displayed
-(/images/logo.png)
-
-
-
+Snapshots
+------------ 
+##### Display Inventory:
+![](images/display_inventory.png)
