@@ -71,7 +71,8 @@ function askForQuantity(product) {
   ]).then(function (answer) {
     var quantityEntered = parseInt(answer.quantity);
     if (quantityEntered > product.stock_quantity) {
-      console.log("insufficient quantity");
+      console.log("Sorry, we have insufficient product inventory and cannot fulfill your order at this time.");
+      console.log("Please select quantity that is within the available quantity range.")
       afterConnection();
     }
     else {
@@ -85,7 +86,7 @@ function makePurchase(product, quantityEntered) {
     quantityEntered, product.item_id
   ], function (err, response) {
     if (err) throw err
-    console.log("You have successfully purchased " + quantityEntered + " " + product.product_name + "(s)");
+    console.log("You have successfully purchased " + quantityEntered + " " + product.product_name + "(s).");
     console.log("You can now place another order. Select a product you would like to procure from the table below:")
     afterConnection();
   });
