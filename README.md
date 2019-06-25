@@ -17,3 +17,14 @@ Snapshots
 ------------ 
 ##### Display Inventory:
 ![](images/display_inventory.png)
+
+##### Purchase a product:
+![](images/purchase_product.png)
+
+##### Incorrect product ID selected:
+![](images/incorrect_productID.png)
+
+##### Insufficient quantity:
+![](images/insufficient_inventory.png)
+
+
