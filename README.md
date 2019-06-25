@@ -5,3 +5,4 @@
 #### NPM packages used: 
 * MySQL 
 * Inquirer 
+* Console.Table
