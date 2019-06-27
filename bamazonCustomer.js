@@ -1,3 +1,4 @@
+require('dotenv').config()
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const cTable = require('console.table');
@@ -12,7 +13,7 @@ const connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "password",
+  password: process.env.DB_PASSWORD,
   database: "bamazon_db"
 });
 
@@ -23,7 +24,7 @@ connection.connect(err => {
 });
 
 function afterConnection() {
-  connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", (err, data) => {
+  connection.query("SELECT * FROM products", (err, data) => {
     if (err) throw err;
     // prints the results in an array
     console.table(data);
@@ -82,12 +83,13 @@ function askForQuantity(product) {
 }
 
 function makePurchase(product, quantityEntered) {
-  connection.query("UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?", [
-    quantityEntered, product.item_id
-  ], function (err, response) {
-    if (err) throw err
-    console.log("You have successfully purchased " + quantityEntered + " " + product.product_name + "(s).");
-    console.log("You can now place another order. Select a product you would like to procure from the table below:")
-    afterConnection();
-  });
+  connection.query("UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",
+    [
+      quantityEntered, product.item_id
+    ], function (err, response) {
+      if (err) throw err
+      console.log("You have successfully purchased " + quantityEntered + " " + product.product_name + "(s).");
+      console.log("You can now place another order. Select a product you would like to procure from the table below:")
+      afterConnection();
+    });
 }
